@@ -5,13 +5,15 @@ import './menu-item.styles.scss'
     // * to hold any state
 // *div style, this allows us to post the images from directory in the background, size
 const MenuItem = ({title,imageUrl,size}) => (
-    <div style={{
-        backgroundImage: `url(${imageUrl})`
-        // *this affects the size of our menu item
-    }} className={`${size} menu-item`}
-    >
+    <div className={`${size} menu-item`}>
+        <div 
+            className='background-image' 
+            style={{
+                backgroundImage: `url(${imageUrl})`
+            }}
+        />
         <div className='content'>
-            <h1 className='title'>{title}</h1>
+            <h1 className='title'>{title.toUpperCase()}</h1>
             <span className='subtitle'>SHOP NOW</span>
         </div>
     </div>
