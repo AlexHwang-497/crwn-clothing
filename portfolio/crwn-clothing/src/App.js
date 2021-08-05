@@ -5,6 +5,7 @@ import './App.css';
 
 import HomePage from './pages/homepage/homepage.component';
 import ShopPage from './pages/shop/shop.component.jsx';
+import Header from './components/header/header.component.jsx'
 
 // ! discuss a little more detail of what is going on here
 // todo: compnent -  will be the compnent that we wnat to render
@@ -17,6 +18,7 @@ import ShopPage from './pages/shop/shop.component.jsx';
 function App() {
   return (
     <div>
+    <Header/>
     <switch>
       {/* what this is sayin is that this math must be exactlly 'slash' in order to render our home page component  */}
       <Route exact path='/' component={HomePage}/>
