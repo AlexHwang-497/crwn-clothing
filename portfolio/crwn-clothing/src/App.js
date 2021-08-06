@@ -8,7 +8,7 @@ import ShopPage from './pages/shop/shop.component';
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
 import Header from './components/header/header.component'
 import { render } from '@testing-library/react';
-import{auth, createUsersProfileDocument} from './firebase/firebase.utils'
+import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 
 // ! discuss a little more detail of what is going on here
 // todo: compnent -  will be the compnent that we wnat to render
@@ -44,7 +44,7 @@ import{auth, createUsersProfileDocument} from './firebase/firebase.utils'
         // * we are checking here if the user is actually signed in
         if(userAuth){
           // *we are using this to check if our database has updated at that refernce w/ any new data
-          const userRef = await createUsersProfileDocument(userAuth)
+          const userRef = await createUserProfileDocument(userAuth);
           // *callin on snap shot is very similar to calling on off-stage changed
             // *what we get back is the snapshot object and on the snapshot object is hwere we are going to get the data related to this user that we possbily stored
           userRef.onSnapshot(snapShot=>{
@@ -55,6 +55,7 @@ import{auth, createUsersProfileDocument} from './firebase/firebase.utils'
                 ...snapShot.data()
               }
             })
+            console.log(this.state)
           })
         }
         // *this is utilized to user object coming back null from above
