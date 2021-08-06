@@ -2,6 +2,8 @@
 // * we will use a class componnet because we need to store what the users are typing in
 import React from 'react'
 
+import FormInput from '../form-input/form-input.component';
+
 import './sign-in.styles.scss'
 
 // *in our state we store an empty string for email and password
@@ -43,18 +45,25 @@ class SignIn extends React.Component{
                 {/* we include the onsubmit function  that calls our method handle submit*/}
                 <form onSubmit={this.handleSubmit}>
                 {/* required is an html attribute */}
-                    <input name ='email' type='email' onChange={this.handleChange} value = {this.state.email} required/>
-                    <label>Email</label>
-                        <input 
+                    <FormInput
+                        name ='email' 
+                        type='email' 
+                        handleChange={this.handleChange} 
+                        value = {this.state.email} 
+                        // *this label will effect the formLabel.component section
+                        label='email'
+                        required/>
+                    
+                        <FormInput 
                             name ='password' 
                             type='password' 
                             value = {this.state.password} 
+                            // *this label will effect the formLabel.component section
+                            label='password'
                             // *we set onChange to to point to our handleChange()
-                            onChange={this.handleChange}
+                            handleChange={this.handleChange}
                             required
                         />
-                    <label>password</label>
-
                     <input type='submit' value ='Submit Form'/>
                 </form>
             </div>
