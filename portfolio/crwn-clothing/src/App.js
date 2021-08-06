@@ -57,7 +57,8 @@ import{auth} from './firebase/firebase.utils'
     render(){
       return (
         <div>
-        <Header/>
+        {/* this helps us with signing out */}
+        <Header currentUser={this.state.currentUser}/>
         <Switch>
           {/* what this is sayin is that this math must be exactlly 'slash' in order to render our home page component  */}
           <Route exact path='/' component={HomePage}/>

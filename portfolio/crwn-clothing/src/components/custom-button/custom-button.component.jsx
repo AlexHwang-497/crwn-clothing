@@ -5,10 +5,13 @@ import './custom-buttom.styles.scss';
     // *we will destructure all the other props int this otherProps and spread into our custom button
     // *we put children inside our button tag
 
-const CustomButton = ({ children, ...otherProps }) => (
-  <button className='custom-button' {...otherProps}>
-    {children}
-  </button>
-);
-
+    const CustomButton = ({ children, isGoogleSignIn, ...otherProps }) => (
+      <button
+        className={`${isGoogleSignIn ? 'google-sign-in' : ''} custom-button`}
+        {...otherProps}
+      >
+        {children}
+      </button>
+    );
+    
 export default CustomButton;
