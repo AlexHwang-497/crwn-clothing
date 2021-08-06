@@ -8,7 +8,7 @@ import ShopPage from './pages/shop/shop.component';
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
 import Header from './components/header/header.component'
 import { render } from '@testing-library/react';
-import{auth} from './firebase/firebase.utils'
+import{auth, createUsersProfileDocument} from './firebase/firebase.utils'
 
 // ! discuss a little more detail of what is going on here
 // todo: compnent -  will be the compnent that we wnat to render
@@ -39,12 +39,12 @@ import{auth} from './firebase/firebase.utils'
       // * it wall call it so we don't actually have to manually fetch every time we want to check if that state has changed
         // !  discuss with carlos in regrds to the fetching
     componentDidMount(){
-      
       // todo: onAuthStateChanged() - this is a method on the auth library that we get from firebase
-      this.unsubscribeFromAuth=auth.onAuthStateChanged(user=>{
+      this.unsubscribeFromAuth=auth.onAuthStateChanged(async user=>{
         // *we are setting current user to the user object
-        this.setState({currentUser:user})
-        console.log(user)
+        // this.setState({currentUser:user})
+        createUsersProfileDocument(user)
+        // console.log(user)
       })
     }
     // *we want to close this subscription whenever our ocmponent un mounts 
