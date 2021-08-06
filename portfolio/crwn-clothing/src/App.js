@@ -40,11 +40,25 @@ import{auth, createUsersProfileDocument} from './firebase/firebase.utils'
         // !  discuss with carlos in regrds to the fetching
     componentDidMount(){
       // todo: onAuthStateChanged() - this is a method on the auth library that we get from firebase
-      this.unsubscribeFromAuth=auth.onAuthStateChanged(async user=>{
-        // *we are setting current user to the user object
-        // this.setState({currentUser:user})
-        createUsersProfileDocument(user)
-        // console.log(user)
+      this.unsubscribeFromAuth=auth.onAuthStateChanged(async userAuth=>{
+        // * we are checking here if the user is actually signed in
+        if(userAuth){
+          // *we are using this to check if our database has updated at that refernce w/ any new data
+          const userRef = await createUsersProfileDocument(userAuth)
+          // *callin on snap shot is very similar to calling on off-stage changed
+            // *what we get back is the snapshot object and on the snapshot object is hwere we are going to get the data related to this user that we possbily stored
+          userRef.onSnapshot(snapShot=>{
+            this.setState({
+              //* we are creating a new object that has all of the proepties and  ID of our snapshot that we want
+              currentUser:{
+                id:snapShot.id,
+                ...snapShot.data()
+              }
+            })
+          })
+        }
+        // *this is utilized to user object coming back null from above
+        this.setState({currentUser:userAuth})
       })
     }
     // *we want to close this subscription whenever our ocmponent un mounts 
