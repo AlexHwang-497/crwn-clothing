@@ -1,5 +1,6 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import './App.css';
 
@@ -9,6 +10,7 @@ import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up
 import Header from './components/header/header.component'
 import { render } from '@testing-library/react';
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
+import { setCurrentUser } from './redux/user/user.actions';
 
 // ! discuss a little more detail of what is going on here
 // todo: compnent -  will be the compnent that we wnat to render
@@ -23,12 +25,7 @@ import { auth, createUserProfileDocument } from './firebase/firebase.utils';
   // * to do this we will now convert the App() into a class
   // *w/ firebase, we just want to know when are we signed in and when we are signed out
   class App extends React.Component {
-    constructor(){
-      super()
-      this.state={
-        currentUser: null
-      }
-    }
+    // ? we wlimiated the construtor becase of mapDispatchToProps
     // *because this is an open subscription beleow aka ComponentDidmOunt(), we also have to close subscirtioins when an unomunt ahpppaens.  
       // * we don't want any memory leaks in our javascript applicatino
       unsubscribeFromAuth = null;
@@ -39,6 +36,7 @@ import { auth, createUserProfileDocument } from './firebase/firebase.utils';
       // * it wall call it so we don't actually have to manually fetch every time we want to check if that state has changed
         // !  discuss with carlos in regrds to the fetching
     componentDidMount(){
+      const { setCurrentUser } = this.props;
       // todo: onAuthStateChanged() - this is a method on the auth library that we get from firebase
       this.unsubscribeFromAuth=auth.onAuthStateChanged(async userAuth=>{
         // * we are checking here if the user is actually signed in
@@ -48,17 +46,14 @@ import { auth, createUserProfileDocument } from './firebase/firebase.utils';
           // *callin on snap shot is very similar to calling on off-stage changed
             // *what we get back is the snapshot object and on the snapshot object is hwere we are going to get the data related to this user that we possbily stored
           userRef.onSnapshot(snapShot=>{
-            this.setState({
-              //* we are creating a new object that has all of the proepties and  ID of our snapshot that we want
-              currentUser:{
+            setCurrentUser({
                 id:snapShot.id,
                 ...snapShot.data()
-              }
-            })
+              })
           })
         }
-        // *this is utilized to user object coming back null from above
-        this.setState({currentUser:userAuth})
+      // ! discuss with carlos what is going on here
+        setCurrentUser(userAuth)
       })
     }
     // *we want to close this subscription whenever our ocmponent un mounts 
@@ -84,10 +79,14 @@ import { auth, createUserProfileDocument } from './firebase/firebase.utils';
       );
     }
   }
-  
+  // todo:  dispatch - is a way for Redux to know that whatever you're passing me/object you're passing me, it is going to be an action object taht i'm going to pass to every producer
+  const mapDispatchToProps = dispatch => ({
+    // *by passin in user, we are invoking current user with the user that will then be used as the payload
+    setCurrentUser: user => dispatch(setCurrentUser(user))
+  })
   
 
-export default App;
+export default connect(null,mapDispatchToProps)(App)
 
 // *we took out this because we wanted to show an example for linking and routing
 // const HatsPage=()=>(
