@@ -72,7 +72,7 @@ import { auth, createUserProfileDocument } from './firebase/firebase.utils';
       return (
         <div>
         {/* this helps us with signing out */}
-        <Header currentUser={this.state.currentUser}/>
+        <Header/>
         <Switch>
           {/* what this is sayin is that this math must be exactlly 'slash' in order to render our home page component  */}
           <Route exact path='/' component={HomePage}/>

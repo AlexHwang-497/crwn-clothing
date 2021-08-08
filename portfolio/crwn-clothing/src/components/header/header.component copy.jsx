@@ -2,8 +2,6 @@
 
 import React from 'react'
 import {Link} from 'react-router-dom'
-//* connect is a higher order component that lets us modify our compnenet ot have access to things realted to redux
-import { connect } from 'react-redux';
 // *imports our firebase stuff
 import {auth} from '../../firebase/firebase.utils'
 // todo: because this is not a jsx ifle, we don't actually set the import.  we are importing the SVG as the react component keyword but we're setting 
@@ -43,13 +41,4 @@ const Header = ({ currentUser }) => (
       </div>
     </div>
 )
-// *this naming can be anything but mapStateProps is standard w/ redux codebases
-// * state = this is the root reducer
-// *by doing this we are now getting that null value as current user being passed in as current user
-// ? this is going to be  a very common pattern that we will write in future compnents
-// ! discuss with carlos in regards to how the null is passed into current user
-const mapStateToProps = state => ({
-  currentUser: state.user.currentUser
-});
-
-export default connect(mapStateToProps)(Header);
+export default Header
