@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import './App.css';
@@ -73,12 +73,27 @@ import { setCurrentUser } from './redux/user/user.actions';
           <Route exact path='/' component={HomePage}/>
           {/* this will take us to our shop page */}
           <Route path='/shop' component={ShopPage} />
-          <Route path='/signin' component={SignInAndSignUpPage} />
+          <Route 
+            exact
+            path='/signin'
+            // *after signing in, this will redirect us to the mainpage until we sign out
+            render={() =>
+              this.props.currentUser ? (
+                <Redirect to='/' />
+              ) : (
+                <SignInAndSignUpPage />
+              )
+            }
+          />
         </Switch>  
         </div>
       );
     }
   }
+// * we are returning our current user prop which is equal to our current user
+  const mapStateToProps =({user}) => ({
+    currentUser:user.currentUser
+  })
   // todo:  dispatch - is a way for Redux to know that whatever you're passing me/object you're passing me, it is going to be an action object taht i'm going to pass to every producer
   const mapDispatchToProps = dispatch => ({
     // *by passin in user, we are invoking current user with the user that will then be used as the payload
@@ -86,12 +101,8 @@ import { setCurrentUser } from './redux/user/user.actions';
   })
   
 
-export default connect(null,mapDispatchToProps)(App)
+  export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(App);
 
-// *we took out this because we wanted to show an example for linking and routing
-// const HatsPage=()=>(
-//   <div>
-//     <h1>HATS PAGE</h1>
-//   </div>
-
-// )

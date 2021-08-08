@@ -1,3 +1,6 @@
+
+import { UserActionTypes } from './user.types';
+
 // todo: reducer is just a function that gets properties
     // todo: it gets a state object which represents the last state or an intial state aka object that we are trying to store when it receives an action
     // todo: that action is just an object that has a type which is a string value, so it's just the name that tells us what specific actions
@@ -25,7 +28,7 @@ const INITIAL_STATE = {
                 
 const userReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
-      case 'SET_CURRENT_USER':
+      case UserActionTypes.SET_CURRENT_USER:
         return {
           ...state,
           currentUser: action.payload
