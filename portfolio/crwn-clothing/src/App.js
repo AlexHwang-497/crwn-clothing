@@ -55,7 +55,6 @@ import { auth, createUserProfileDocument } from './firebase/firebase.utils';
                 ...snapShot.data()
               }
             })
-            console.log(this.state)
           })
         }
         // *this is utilized to user object coming back null from above
