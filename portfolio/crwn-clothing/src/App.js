@@ -26,7 +26,7 @@ import { auth, createUserProfileDocument } from './firebase/firebase.utils';
     constructor(){
       super()
       this.state={
-        currentUser: null
+        
       }
     }
     // *because this is an open subscription beleow aka ComponentDidmOunt(), we also have to close subscirtioins when an unomunt ahpppaens.  
