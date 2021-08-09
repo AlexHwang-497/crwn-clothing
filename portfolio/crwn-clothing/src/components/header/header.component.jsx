@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom'
 import { connect } from 'react-redux';
 // *imports our firebase stuff
 import {auth} from '../../firebase/firebase.utils'
+import CartIcon from '../cart-icon/cart-icon.component';
 // todo: because this is not a jsx ifle, we don't actually set the import.  we are importing the SVG as the react component keyword but we're setting 
     // todo: it to the logo here
 import{ReactComponent as Logo} from '../../assets/crown.svg'
@@ -40,6 +41,7 @@ const Header = ({ currentUser }) => (
             SIGN IN
           </Link>
         )}
+        <CartIcon/>
       </div>
     </div>
 )
