@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 // *imports our firebase stuff
 import {auth} from '../../firebase/firebase.utils'
 import CartIcon from '../cart-icon/cart-icon.component';
+import CartDropdown from '../cart-dropdown/card-dropdown.component';
 // todo: because this is not a jsx ifle, we don't actually set the import.  we are importing the SVG as the react component keyword but we're setting 
     // todo: it to the logo here
 import{ReactComponent as Logo} from '../../assets/crown.svg'
@@ -19,7 +20,7 @@ import './header.styles.scss'
 //*if current user is true, provide a <div> othersiwe a <link> *
     // * inside the <div> - we will change to sign out
     // * inside the <link> - we will change to sign signin
-const Header = ({ currentUser }) => (
+const Header = ({ currentUser, hidden }) => (
     <div className='header'>
       <Link className='logo-container' to='/'>
         <Logo className='logo' />
@@ -42,7 +43,9 @@ const Header = ({ currentUser }) => (
           </Link>
         )}
         <CartIcon/>
-      </div>
+      </div>  
+      {/* this allows us to click the cart dropdown aka toggling it */}
+        {hidden ? null : <CartDropdown />}
     </div>
 )
 // *this naming can be anything but mapStateProps is standard w/ redux codebases
@@ -50,8 +53,13 @@ const Header = ({ currentUser }) => (
 // *by doing this we are now getting that null value as current user being passed in as current user
 // ? this is going to be  a very common pattern that we will write in future compnents
 // ! discuss with carlos in regards to how the null is passed into current user
-const mapStateToProps = state => ({
-  currentUser: state.user.currentUser
+
+// *the synax we are writing here is for when we want to destructure nested values
+  // ! discuss with carlos the destructured value
+const mapStateToProps = ({ user: { currentUser }, cart: { hidden } }) => ({
+  currentUser,
+  hidden
 });
+
 
 export default connect(mapStateToProps)(Header);
