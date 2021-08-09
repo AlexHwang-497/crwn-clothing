@@ -17,13 +17,12 @@ export const removeItem = item => ({
   type: CartActionTypes.REMOVE_ITEM,
   payload: item
 });
+
 // * this works similar to the add Item
 export const clearItemFromCart = item => ({
   type: CartActionTypes.CLEAR_ITEM_FROM_CART,
   payload: item
 });
-
-
 
 
 // ? this is how the add item works

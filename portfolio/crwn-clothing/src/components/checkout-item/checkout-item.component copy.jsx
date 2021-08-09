@@ -9,8 +9,11 @@ import {
 
 import './checkout-item.styles.scss';
 
-const CheckoutItem = ({ cartItem, clearItem, addItem, removeItem }) => {
+const CheckoutItem = ({ cartItem, clearItem, addItem, removeItem}) => {
   const { name, imageUrl, price, quantity } = cartItem;
+  // *we do an explicit return, just to make sure to se the context of thesee value inside of the squiggly lines of our function defntion
+  // *we will now have access to our cart times as well our new clear item function that we are passing
+  {/* on the onclick we are calling our clearItem function taht we are passing in as a property and we will pass the cart item in */}
   return (
     <div className='checkout-item'>
       <div className='image-container'>
