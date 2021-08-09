@@ -13,6 +13,9 @@
   font-weight: bolder;
   border: none;
   cursor: pointer;
+  display: flex;
+  // *this will make sure that our text is always algined
+  justify-content: center;
 
   &:hover {
     background-color: white;
@@ -26,6 +29,18 @@
 
     &:hover {
       background-color: #357ae8;
+      border: none;
+    }
+  }
+// *if it is inverted, these are the styles below....
+  &.inverted {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+
+    &:hover {
+      background-color: black;
+      color: white;
       border: none;
     }
   }
