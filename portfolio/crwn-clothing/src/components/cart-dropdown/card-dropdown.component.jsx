@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux'
+import { createStructuredSelector } from 'reselect';
 // *we import the custom button because we need it at the very end
 import CustomButton from '../custom-button/custom-button.component';
 import CartItem from '../cart-item/cart-item.component';
@@ -22,8 +23,7 @@ const CartDropdown = ({cartItems}) => (
 
 // *we are dstructing cart off of state
 // * this function will make sure that our cart dropdown copmonnet is not getiing re rendered whenver the state changes, that's unrealted to the cart items
-const mapStateToProps = (state) => ({
-  cartItems:selectCartItems(state)
+const mapStateToProps = createStructuredSelector({
+  cartItems: selectCartItems
 });
-
 export default connect(mapStateToProps)(CartDropdown);

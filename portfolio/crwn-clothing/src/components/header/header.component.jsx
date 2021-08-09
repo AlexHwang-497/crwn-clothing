@@ -4,10 +4,16 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 //* connect is a higher order component that lets us modify our compnenet ot have access to things realted to redux
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+
 // *imports our firebase stuff
 import {auth} from '../../firebase/firebase.utils'
 import CartIcon from '../cart-icon/cart-icon.component';
 import CartDropdown from '../cart-dropdown/card-dropdown.component';
+import { selectCartHidden, selectCartItems } from '../../redux/cart/cart.selectors';
+import { selectCurrentUser } from '../../redux/user/user.selectors';
+
+
 // todo: because this is not a jsx ifle, we don't actually set the import.  we are importing the SVG as the react component keyword but we're setting 
     // todo: it to the logo here
 import{ReactComponent as Logo} from '../../assets/crown.svg'
@@ -56,10 +62,9 @@ const Header = ({ currentUser, hidden }) => (
 
 // *the synax we are writing here is for when we want to destructure nested values
   // ! discuss with carlos the destructured value
-const mapStateToProps = ({ user: { currentUser }, cart: { hidden } }) => ({
-  currentUser,
-  hidden
-});
-
+  const mapStateToProps = createStructuredSelector({
+    currentUser: selectCurrentUser,
+    hidden: selectCartHidden
+  });
 
 export default connect(mapStateToProps)(Header);
