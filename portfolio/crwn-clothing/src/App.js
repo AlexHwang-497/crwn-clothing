@@ -8,6 +8,8 @@ import './App.css';
 import HomePage from './pages/homepage/homepage.component';
 import ShopPage from './pages/shop/shop.component';
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
+import CheckoutPage from './redux/checkout/checkout.component';
+
 import Header from './components/header/header.component'
 import { render } from '@testing-library/react';
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
@@ -75,6 +77,7 @@ import { selectCurrentUser } from './redux/user/user.selectors';
           <Route exact path='/' component={HomePage}/>
           {/* this will take us to our shop page */}
           <Route path='/shop' component={ShopPage} />
+          <Route exact path='/Checkout' component={CheckoutPage} />
           <Route 
             exact
             path='/signin'
