@@ -1,4 +1,5 @@
 import CartActionTypes from './cart.types';
+import { addItemToCart } from './cart.utils';
 
 const INITIAL_STATE = {
     // *we want to hide our webstie when they first come 
@@ -22,7 +23,7 @@ const INITIAL_STATE = {
             return {
               ...state,
               // *this will aloow our cart items array to be our old car items and then w/ the newest action got fired right.
-              cartItems:[...state.cartItems,action.payload]
+              cartItems:addItemToCart(state.cartItems, action.payload)
             }
           default:
               return state;
