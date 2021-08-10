@@ -3,13 +3,6 @@ import { createSelector } from 'reselect';
 
 const selectShop = state => state.shop;
 
-const COLLECTION_ID_MAP = {
-  hats:1,
-  sneakers:2,
-  jackets:3,
-  womens:4,
-  mens:5
-}
 
 export const selectCollections = createSelector(
   [selectShop],
@@ -26,6 +19,17 @@ export const selectCollectionsForPreview = createSelector(
 export const selectCollection = collectionUrlParam =>
   createSelector(
     [selectCollections],
-    collections => collections.find(collection => collection.id===COLLECTION_ID_MAP[collectionUrlParam])
-    // collections => collections[collectionUrlParam]
+    // * we don't need to use this function anymore because we changed the shop database format
+    // collections => collections.find(collection => collection.id===COLLECTION_ID_MAP[collectionUrlParam])
+    // *we are able to use this due to the new changes in our database
+    collections => collections[collectionUrlParam]
   );
+
+// *since we changed our database, we don't need this format anymore
+  // const COLLECTION_ID_MAP = {
+//   hats:1,
+//   sneakers:2,
+//   jackets:3,
+//   womens:4,
+//   mens:5
+// }
