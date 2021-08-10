@@ -8,7 +8,7 @@ export const selectCollections = createSelector(
   [selectShop],
   shop => shop.collections
 );
-
+// ! wher edoes select collectinos come from
 export const selectCollectionsForPreview = createSelector(
   [selectCollections],
   collections => Object.keys(collections).map(key => collections[key])
