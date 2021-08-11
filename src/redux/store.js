@@ -10,6 +10,11 @@ import logger from 'redux-logger';
 import rootReducer from './root-reducer';
 
 const middlewares = [logger];
+// this removes all teh code in the console video 164.
+if(process.env.NODE_ENV==='development'){
+    middlewares.push(logger)
+}
+
 // *....midllewares will spread in everything from the array aka [logger]
 export const store = createStore(rootReducer, applyMiddleware(...middlewares));
 
