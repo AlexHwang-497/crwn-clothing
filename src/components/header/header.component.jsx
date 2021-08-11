@@ -1,7 +1,6 @@
 // * our header component will be a functional componnet
 
 import React from 'react'
-import {Link} from 'react-router-dom'
 //* connect is a higher order component that lets us modify our compnenet ot have access to things realted to redux
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -17,7 +16,7 @@ import { selectCurrentUser } from '../../redux/user/user.selectors';
 // todo: because this is not a jsx ifle, we don't actually set the import.  we are importing the SVG as the react component keyword but we're setting 
     // todo: it to the logo here
 import{ReactComponent as Logo} from '../../assets/crown.svg'
-import './header.styles.scss'
+import { HeaderContainer,LogoContainer, OptionsContainer, OptionLink } from './header.styles';
 
 
 // *our logo will link to the home page when you click it
@@ -27,32 +26,32 @@ import './header.styles.scss'
     // * inside the <div> - we will change to sign out
     // * inside the <link> - we will change to sign signin
 const Header = ({ currentUser, hidden }) => (
-    <div className='header'>
-      <Link className='logo-container' to='/'>
+    <HeaderContainer>
+      <LogoContainer to='/'>
         <Logo className='logo' />
-      </Link>
-      <div className='options'>
-        <Link className='option' to='/shop'>
+      </LogoContainer>
+      <OptionsContainer>
+        <OptionLink to='/shop'>
           SHOP
-        </Link>
-        <Link className='option' to='/shop'>
+        </OptionLink>
+        <OptionLink to='/shop'>
           CONTACT
-        </Link>
+        </OptionLink>
    
         {currentUser ? (
-          <div className='option' onClick={() => auth.signOut()}>
+          <OptionLink as='div' onClick={() => auth.signOut()}>
             SIGN OUT
-          </div>
+          </OptionLink>
         ) : (
-          <Link className='option' to='/signin'>
+          <OptionLink to='/signin'>
             SIGN IN
-          </Link>
+          </OptionLink>
         )}
         <CartIcon/>
-      </div>  
+      </OptionsContainer>  
       {/* this allows us to click the cart dropdown aka toggling it */}
         {hidden ? null : <CartDropdown />}
-    </div>
+    </HeaderContainer>
 )
 // *this naming can be anything but mapStateProps is standard w/ redux codebases
 // * state = this is the root reducer
